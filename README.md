@@ -24,7 +24,11 @@ Presentation Layer
 
 There are two distinctive screens that the user interacts with
 -	Clntgui: this is a TUI that displays all the details for one client record. The user can navigate through the records (‘Next’ and ‘Prev’), query records by client number, and also add, update and delete records. Input is limited to the surname and date of birth, but there is extensive validation on these fields.
+![alt tag](https://github.com/Notters/Cobol/blob/master/clntgui.jpg)
+
+
 -	Clntbrws: this is called when you select the ‘Browse’ option on the clntgui screen. This screen displays a list of ten clients per page and, therefore, provides a quick method of browsing through the clients. Users can flick through the pages using function keys, and then move the on-screen cursor up and down (also using function keys) before selecting a record. Selecting the record will reload the clntgui screen with the client details for the selected client.
+![alt tag](https://github.com/Notters/Cobol/blob/master/clntbrws.jpg)
 
 Additional Programs
 
