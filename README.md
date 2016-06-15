@@ -12,13 +12,13 @@ Data tier
 
 There are two indexed files:
 -	Clnt.dat, which stores client information - client number, surname, dob and balance.
--	Cont.dat, which stores the next client number – this, in my opinion, is the best way to automatically generate the next client number when you want to add another client.
+-	Cont.dat, which stores the next client number – this, in my opinion, is the best way to automatically generate the next client number when addiing clients.
 
 Logic tier
 
-There are two programs that are responsible to handling the interactions between the presentation layer and data layer:
--	Clntio: this program accepts operational commands and client information from the clntgui screen (in the presentation tier). The clntio program then performs the necessary operations and returns four parameters: the client record, a navigation status (used by the Presentation tier to control navigation) and a message (used by the presentation layer to inform users of why certain actions cannot be carried out – e.g. pressing ‘Next’ on the last record should display an ‘End of file’ message)
--	Contio: this is responsible for retrieving the next client number (stored on cont.dat) and then sending it to clntio when adding clients. The program then increments the next client number by one.
+There are two programs that are responsible for handling the interactions between the presentation layer and data layer:
+-	Clntio: this program accepts operational commands and client information from the clntgui screen. The clntio program then performs the necessary operations and returns four parameters: the client record, a navigation status (used by the clntgui screen to control navigation and used by the clntbrws screen to improve how records are displayed at the end and at the start) and a message (used by the clntgui screen to inform users of why certain actions cannot be carried out – e.g. pressing ‘Next’ on the last record should display an ‘End of file’ message).
+-	Contio: this is responsible for generating the next client number to use when adding new clients.
 	
 Presentation Layer
 
@@ -27,19 +27,19 @@ There are two distinctive screens that the user interacts with
 ![alt tag](https://github.com/Notters/Cobol/blob/master/clntgui.jpg)
 
 
--	Clntbrws: this is called when you select the ‘Browse’ option on the clntgui screen. This screen displays a list of ten clients per page and, therefore, provides a quick method of browsing through the clients. Users can flick through the pages using function keys, and then move the on-screen cursor up and down (also using function keys) before selecting a record. Selecting the record will reload the clntgui screen with the client details for the selected client.
+-	Clntbrws: this is called when you select the ‘Browse’ option on the clntgui screen. This screen displays a list of ten clients per page and, therefore, provides a quick method of browsing through the clients. Users can flick through the pages using function keys, and then move the on-screen cursor up and down (also using function keys) before selecting a record. Selecting a client record will reload the clntgui screen with the client's details.
 ![alt tag](https://github.com/Notters/Cobol/blob/master/clntbrws.jpg)
 
 Additional Programs
 
 Some readers will notice that there are additional programs on this project.
--	Dates: one way to make your lives much easier as a software developer is to store dates in a numeric format that represents the number of days since a particular date. In the context of OpenCobol (now known as GNU Cobol) all numeric dates are calculated from 1st January 1601. Why use this? Well, it is much easier to perform calculations when using dates stored as numerics. I have validation that prevents the user from entering a date of birth prior to 1st January 1900 or after ‘today’. The dates.cob program converts dates between the numeric figure and the format that is more recognisable to us: yyyymmdd.
--	Dropclnts: as I have been developing the software I wanted a quick way to delete all the records in the clnt file and reset the next client number back to 1. Just by executing the ‘open output ClientFile’ and ‘open output ContinueFile’ statements the clnt.dat and cont.dat files are overwritten with a blank file. I then perform a quick function to set the next client number to 1.
+-	Dates: one way to make your lives much easier as a software developer is to store dates in a numeric format that represents the number of days since a particular date. In the context of OpenCobol (now known as GNU Cobol) all numeric dates are calculated from 1st January 1601. This technique makes it much easier to perform calculations when using dates stored as numerics. I have validation that prevents the user from entering a date of birth prior to 1st January 1900 or after ‘today’. The dates.cob program converts dates between the numeric figure and the format that is more recognisable to us: yyyymmdd.
+-	Dropclnts: as I have been developing the application I wanted a quick way to delete all the records in the clnt file and reset the next client number back to 1. This program does just that.
 -	Enrol: I wanted to make a quick program that will populate the clnt.dat file with records from a csv file. Be warned: there are no validation checks. My intentions were to automate a process that I would have otherwise found tedious – entering the records manually in clntgui. I decided to publish this as it could be helpful for those learning Cobol.
 
 The software was developed using OpenCobol 1.1 which was packaged with Slackware Linux 16. It is advised to execute this program on a basic terminal application, such as Konsole, as you will need full use of Function keys F1 to F12. Some advanced terminals reserve the Function keys for their intended purposes, which results in my application malfunctioning.
 
-The program can be compiled using the compile.sh shell script and run via the command: cobcrun clntgui.
+The program can be compiled using the compile.sh shell script and can then be run via the command: cobcrun clntgui.
 
 Thank you for reading and showing an interest in this project. I hope you can find some use for it.
 
